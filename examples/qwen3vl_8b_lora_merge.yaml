@@ -1,0 +1,10 @@
+model_name_or_path: Qwen/Qwen3-VL-8B-Instruct
+adapter_name_or_path: ./checkpoints/medix-sft-8b-lora
+template: qwen3_vl_nothink
+finetuning_type: lora
+trust_remote_code: true
+
+export_dir: ./checkpoints/medix-sft-8b-merged
+export_size: 5
+export_device: cpu
+export_legacy_format: false

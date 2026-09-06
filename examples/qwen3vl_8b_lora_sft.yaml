@@ -1,0 +1,49 @@
+### model
+model_name_or_path: Qwen/Qwen3-VL-8B-Instruct
+image_max_pixels: 262144
+trust_remote_code: true
+
+### method
+stage: sft
+do_train: true
+finetuning_type: lora
+lora_rank: 8
+lora_alpha: 16
+lora_dropout: 0.05
+lora_target: all
+freeze_vision_tower: true
+
+### dataset
+dataset_dir: ../sft_data
+dataset: medix_sft_train
+eval_dataset: medix_sft_val
+template: qwen3_vl_nothink
+cutoff_len: 2048
+max_samples: 256
+preprocessing_num_workers: 4
+dataloader_num_workers: 2
+
+### output
+output_dir: ./checkpoints/medix-sft-8b-lora
+logging_steps: 5
+save_steps: 50
+eval_steps: 25
+plot_loss: true
+overwrite_output_dir: true
+save_only_model: false
+report_to: none
+
+### train
+per_device_train_batch_size: 1
+gradient_accumulation_steps: 8
+learning_rate: 1.0e-4
+num_train_epochs: 1.0
+lr_scheduler_type: cosine
+warmup_ratio: 0.1
+bf16: true
+gradient_checkpointing: true
+ddp_timeout: 180000000
+
+### eval
+per_device_eval_batch_size: 1
+eval_strategy: steps

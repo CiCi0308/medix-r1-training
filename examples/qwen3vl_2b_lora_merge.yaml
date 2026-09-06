@@ -1,0 +1,10 @@
+model_name_or_path: Qwen/Qwen3-VL-2B-Instruct
+adapter_name_or_path: /media/mldadmin/home/s125mdg312_06/MediX-R1/training/checkpoints/medix-sft-2b-lora
+template: qwen3_vl_nothink
+finetuning_type: lora
+trust_remote_code: true
+
+export_dir: /media/mldadmin/home/s125mdg312_06/MediX-R1/training/checkpoints/medix-sft-2b-merged
+export_size: 5
+export_device: cpu
+export_legacy_format: false
