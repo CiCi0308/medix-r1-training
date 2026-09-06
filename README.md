@@ -19,10 +19,26 @@ the full-parameter Adam step.
 
 See [GPU_RUN.md](GPU_RUN.md) for the exact environment, data preparation, and
 launch commands, the required validation target, and the results to return.
-The smallest verification run is:
+The merged 2B SFT checkpoint is publicly available at:
+
+```text
+https://huggingface.co/cicideng/medix-sft-2b-merged
+```
+
+Download it on the GPU server:
+
+```bash
+hf download cicideng/medix-sft-2b-merged \
+  --local-dir ~/models/medix-sft-2b-merged
+```
+
+Then prepare the smoke-test data and run one complete optimizer update on two
+GPUs:
 
 ```bash
 python scripts/create_smoke_dataset.py
+CUDA_VISIBLE_DEVICES=0,1 \
+MODEL_PATH="$HOME/models/medix-sft-2b-merged" \
 bash examples/medix-r1_2b_3090_smoke.sh 2>&1 | tee medix_smoke.log
 ```
 
