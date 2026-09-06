@@ -18,7 +18,8 @@ the full-parameter Adam step.
 ## Quick start for a remote GPU
 
 See [GPU_RUN.md](GPU_RUN.md) for the exact environment, data preparation, and
-launch commands. The smallest verification run is:
+launch commands, the required validation target, and the results to return.
+The smallest verification run is:
 
 ```bash
 python scripts/create_smoke_dataset.py

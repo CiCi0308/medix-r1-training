@@ -4,6 +4,23 @@ These instructions are for a Linux machine with two NVIDIA GPUs (24 GB each),
 CUDA drivers, Git, and Conda installed. Run all commands from the repository
 root unless noted otherwise.
 
+## What I need you to do
+
+Please run the one-step end-to-end RL smoke test on either two 24 GB GPUs or one
+48/80 GB GPU. The purpose is to verify the complete pipeline:
+
+```text
+response generation -> reward computation -> log-probability computation
+-> backward pass -> full-parameter Adam optimizer update
+```
+
+Generation, reward computation, and log-probability computation have already
+worked on a single RTX 3090. The remaining issue is that a single 24 GB GPU
+runs out of memory at the final full-parameter Adam update.
+
+The merged SFT checkpoint path and the reward-judge API settings will be shared
+privately. They are intentionally not stored in this public repository.
+
 ## 1. Clone and create the environment
 
 ```bash
@@ -60,7 +77,12 @@ bash examples/medix-r1_2b_3090_smoke.sh 2>&1 | tee medix_smoke.log
 ```
 
 Success means the run completes one optimizer update without CUDA OOM. Please
-return `medix_smoke.log` and the output of `nvidia-smi` if it fails.
+return the following after the run:
+
+- whether one optimizer update completed successfully;
+- `medix_smoke.log`;
+- the output of `nvidia-smi` showing the GPU model and memory;
+- if it fails, the full traceback and the stage at which it failed.
 
 ## Optional short run
 
